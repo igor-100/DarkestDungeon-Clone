@@ -1,4 +1,5 @@
 public enum ECharacters
 {
-    Marty
+    Hero_Miner,
+    Enemy_Miner
 }

@@ -6,7 +6,7 @@ public class LevelScene : MonoBehaviour
     private IPlayerInput PlayerInput;
     private IConfiguration Configuration;
     private ISceneLoader SceneLoader;
-    private IPlayer Player;
+    //private IPlayer Player;
 
     private Camera gameCamComponent;
 
@@ -16,19 +16,19 @@ public class LevelScene : MonoBehaviour
         PlayerInput = CompositionRoot.GetPlayerInput();
         Configuration = CompositionRoot.GetConfiguration();
         SceneLoader = CompositionRoot.GetSceneLoader();
-        Player = CompositionRoot.GetPlayer();
+        //Player = CompositionRoot.GetPlayer();
 
         var environment = CompositionRoot.GetEnvironment();
 
         //var uiRoot = CompositionRoot.GetUIRoot();
 
-        Player.Died += OnPlayerDied;
+        //Player.Died += OnPlayerDied;
     }
 
     private void Start()
     {
-        GameCam.SetTarget(Player.Transform);
-        Player.Transform.position = Configuration.GetLevelsProperties()[0].RespawnPoint;
+        //GameCam.SetTarget(Player.Transform);
+        //Player.Transform.position = Configuration.GetLevelsProperties()[0].RespawnPoint;
     }
 
 

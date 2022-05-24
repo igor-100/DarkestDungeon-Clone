@@ -6,5 +6,7 @@ namespace Assets.Scripts.Configurations
     {
         public ELevels Level;
         public Vector2 RespawnPoint;
+        public HeroTeamProperties HeroTeamProperties;
+        public EnemyTeamProperties EnemyTeamProperties;
     }
 }

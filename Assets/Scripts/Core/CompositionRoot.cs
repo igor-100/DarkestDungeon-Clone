@@ -9,7 +9,7 @@ public class CompositionRoot : MonoBehaviour
     private static IViewFactory ViewFactory;
     private static IGameCamera GameCamera;
     private static ISceneLoader SceneLoader;
-    private static IPlayer Player;
+    //private static IPlayer Player;
     private static IResourceManager ResourceManager;
     private static IConfiguration Configuration;
 
@@ -17,7 +17,7 @@ public class CompositionRoot : MonoBehaviour
     {
         EnvironmentGameObject = null;
         PlayerInput = null;
-        Player = null;
+        //Player = null;
         GameCamera = null;
         Configuration = null;
         UIRoot = null;
@@ -37,16 +37,16 @@ public class CompositionRoot : MonoBehaviour
         return ResourceManager;
     }
 
-    public static IPlayer GetPlayer()
-    {
-        if (Player == null)
-        {
-            var resourceManager = GetResourceManager();
-            Player = resourceManager.CreatePrefabInstance<IPlayer, ECharacters>(ECharacters.Marty);
-        }
+    //public static IPlayer GetPlayer()
+    //{
+    //    if (Player == null)
+    //    {
+    //        var resourceManager = GetResourceManager();
+    //        Player = resourceManager.CreatePrefabInstance<IPlayer, ECharacters>(ECharacters.Marty);
+    //    }
 
-        return Player;
-    }
+    //    return Player;
+    //}
 
     public static IGameCamera GetGameCamera()
     {
