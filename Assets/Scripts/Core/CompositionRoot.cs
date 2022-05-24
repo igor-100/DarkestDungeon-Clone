@@ -3,8 +3,10 @@ using UnityEngine.EventSystems;
 
 public class CompositionRoot : MonoBehaviour
 {
+    private static IUIRoot UIRoot;
     private static GameObject EnvironmentGameObject;
     private static IPlayerInput PlayerInput;
+    private static IViewFactory ViewFactory;
     private static IGameCamera GameCamera;
     private static ISceneLoader SceneLoader;
     private static IPlayer Player;
@@ -18,6 +20,8 @@ public class CompositionRoot : MonoBehaviour
         Player = null;
         GameCamera = null;
         Configuration = null;
+        UIRoot = null;
+        ViewFactory = null;
 
         var resourceManager = GetResourceManager();
         resourceManager.ResetPools();
@@ -96,5 +100,29 @@ public class CompositionRoot : MonoBehaviour
         }
 
         return PlayerInput;
+    }
+
+    public static IUIRoot GetUIRoot()
+    {
+        if (UIRoot == null)
+        {
+            var resourceManager = GetResourceManager();
+            UIRoot = resourceManager.CreatePrefabInstance<IUIRoot, EComponents>(EComponents.UIRoot);
+        }
+
+        return UIRoot;
+    }
+
+    public static IViewFactory GetViewFactory()
+    {
+        if (ViewFactory == null)
+        {
+            var uiRoot = GetUIRoot();
+            var resourceManager = GetResourceManager();
+
+            ViewFactory = new ViewFactory(uiRoot, resourceManager);
+        }
+
+        return ViewFactory;
     }
 }
