@@ -2,9 +2,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class Hero : MonoBehaviour, IHero
+public class Enemy : MonoBehaviour, IEnemy
 {
-    private UnitProperties heroProperties;
+    private UnitProperties enemyProperties;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class Hero : MonoBehaviour, IHero
 
     public void SetUnitProperties(UnitProperties unitProperties)
     {
-        this.heroProperties = unitProperties;
+        this.enemyProperties = unitProperties;
     }
 
     public void MoveToFightScene()

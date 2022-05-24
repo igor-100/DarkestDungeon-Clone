@@ -19,6 +19,8 @@ public class LevelScene : MonoBehaviour
         //Player = CompositionRoot.GetPlayer();
 
         var environment = CompositionRoot.GetEnvironment();
+        var fightGameplay = CompositionRoot.GetFightGameplay();
+        fightGameplay.SetLevelPropsAndInit(Configuration.GetLevelsProperties()[0]);
 
         //var uiRoot = CompositionRoot.GetUIRoot();
 

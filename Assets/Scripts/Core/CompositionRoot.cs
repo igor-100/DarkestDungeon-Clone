@@ -13,6 +13,8 @@ public class CompositionRoot : MonoBehaviour
     private static IResourceManager ResourceManager;
     private static IConfiguration Configuration;
 
+    private static IFightGameplay FightGameplay;
+
     private void OnDestroy()
     {
         EnvironmentGameObject = null;
@@ -22,6 +24,7 @@ public class CompositionRoot : MonoBehaviour
         Configuration = null;
         UIRoot = null;
         ViewFactory = null;
+        FightGameplay = null;
 
         var resourceManager = GetResourceManager();
         resourceManager.ResetPools();
@@ -64,7 +67,7 @@ public class CompositionRoot : MonoBehaviour
         if (EnvironmentGameObject == null)
         {
             var resourceManager = GetResourceManager();
-            EnvironmentGameObject = resourceManager.CreatePrefabInstance<ELevels>(ELevels.Env_Forest_1);
+            EnvironmentGameObject = resourceManager.CreatePrefabInstance<ELevels>(ELevels.Env_1);
         }
 
         return EnvironmentGameObject;
@@ -100,6 +103,17 @@ public class CompositionRoot : MonoBehaviour
         }
 
         return PlayerInput;
+    }
+
+    public static IFightGameplay GetFightGameplay()
+    {
+        if (FightGameplay == null)
+        {
+            var gameObject = new GameObject("FightGameplay");
+            FightGameplay = gameObject.AddComponent<FightGameplay>();
+        }
+
+        return FightGameplay;
     }
 
     public static IUIRoot GetUIRoot()

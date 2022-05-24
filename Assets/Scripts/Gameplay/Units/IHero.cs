@@ -1,0 +1,4 @@
+public interface IHero : IUnit 
+{
+
+}

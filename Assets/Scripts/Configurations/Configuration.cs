@@ -12,8 +12,10 @@ public class Configuration : IConfiguration
         {
             new LevelProperties()
             {
-                Level = ELevels.Env_Forest_1,
-                RespawnPoint = new Vector2(-9f, -2f),
+                Level = ELevels.Env_1,
+                HeroTeamSpawnPoint = new Vector2(-15f, -8f),
+                EnemyTeamSpawnPoint = new Vector2(13f, -8f),
+                CentralFightScenePoint = new Vector2(0f, -7.5f),
                 HeroTeamProperties = new HeroTeamProperties()
                 {
                     Units = new List<UnitProperties>()
