@@ -11,6 +11,8 @@ public class FightGameplay : MonoBehaviour, IFightGameplay, IStateable
     private LevelProperties currentLevelSceneProps;
     private IResourceManager ResourceManager;
 
+    internal IPlayerActions playerActions;
+
     internal List<IHero> heroes = new List<IHero>();
     internal List<IEnemy> enemies = new List<IEnemy>();
 
@@ -21,8 +23,10 @@ public class FightGameplay : MonoBehaviour, IFightGameplay, IStateable
     {
         ResourceManager = CompositionRoot.GetResourceManager();
 
-        StateMachine = new StateMachine();
+        playerActions = CompositionRoot.GetPlayerActions();
+        playerActions.Hide();
 
+        StateMachine = new StateMachine();
         PlayerTurnState = new PlayerTurnState(this);
     }
 

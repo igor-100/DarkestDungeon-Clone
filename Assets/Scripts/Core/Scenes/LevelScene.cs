@@ -22,7 +22,7 @@ public class LevelScene : MonoBehaviour
         var fightGameplay = CompositionRoot.GetFightGameplay();
         fightGameplay.SetLevelPropsAndInit(Configuration.GetLevelsProperties()[0]);
 
-        //var uiRoot = CompositionRoot.GetUIRoot();
+        var uiRoot = CompositionRoot.GetUIRoot();
 
         //Player.Died += OnPlayerDied;
     }

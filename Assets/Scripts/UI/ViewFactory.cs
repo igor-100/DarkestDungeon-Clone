@@ -8,4 +8,12 @@
         UIRoot = uiRoot;
         ResourceManager = resourceManager;
     }
+
+    public IPlayerActionsView CreatePlayerActionsView()
+    {
+        var view = ResourceManager.CreatePrefabInstance<IPlayerActionsView, EViews>(EViews.PlayerActionsView);
+        view.SetParent(UIRoot.OverlayCanvas);
+
+        return view;
+    }
 }

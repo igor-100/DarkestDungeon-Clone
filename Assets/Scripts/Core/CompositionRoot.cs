@@ -14,6 +14,7 @@ public class CompositionRoot : MonoBehaviour
     private static IConfiguration Configuration;
 
     private static IFightGameplay FightGameplay;
+    private static IPlayerActions PlayerActions;
 
     private void OnDestroy()
     {
@@ -25,6 +26,7 @@ public class CompositionRoot : MonoBehaviour
         UIRoot = null;
         ViewFactory = null;
         FightGameplay = null;
+        PlayerActions = null;
 
         var resourceManager = GetResourceManager();
         resourceManager.ResetPools();
@@ -138,5 +140,16 @@ public class CompositionRoot : MonoBehaviour
         }
 
         return ViewFactory;
+    }
+
+    public static IPlayerActions GetPlayerActions()
+    {
+        if (PlayerActions == null)
+        {
+            var gameObject = new GameObject("PlayerActions");
+            PlayerActions = gameObject.AddComponent<PlayerActions>();
+        }
+
+        return PlayerActions;
     }
 }

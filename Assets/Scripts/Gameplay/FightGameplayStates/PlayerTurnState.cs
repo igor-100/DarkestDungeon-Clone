@@ -1,4 +1,5 @@
 ﻿using Core.State;
+using System;
 using UnityEngine;
 
 public class PlayerTurnState : State
@@ -17,6 +18,9 @@ public class PlayerTurnState : State
         base.Enter();
         Debug.Log("PlayerTurnState");
 
+        fightGameplay.playerActions.Show();
+        fightGameplay.playerActions.WaitClicked += OnWaitClicked;
+
         chosenHero = null;
 
         foreach (var hero in fightGameplay.heroes)
@@ -24,7 +28,6 @@ public class PlayerTurnState : State
             hero.Clicked += OnHeroClicked;
         }
     }
-
     private void OnHeroClicked(IUnit unit)
     {
         var hero = unit as IHero;
@@ -33,21 +36,47 @@ public class PlayerTurnState : State
             if (chosenHero.Id != hero.Id)
             {
                 chosenHero.UnChoose();
-                hero.Choose();
-                chosenHero = hero;
+                ChooseHero(hero);
             }
             else
             {
                 hero.UnChoose();
-                chosenHero = null;
+                NoHeroChosen();
             }
         }
         else
         {
-            hero.Choose();
-            chosenHero = hero;
+            ChooseHero(hero);
         }
     }
+
+    private void NoHeroChosen()
+    {
+        chosenHero = null;
+
+        fightGameplay.playerActions.HideAttackButton();
+        fightGameplay.playerActions.AttackClicked -= OnAttackClicked;
+    }
+
+    private void ChooseHero(IHero hero)
+    {
+        hero.Choose();
+        chosenHero = hero;
+
+        fightGameplay.playerActions.ShowAttackButton();
+        fightGameplay.playerActions.AttackClicked += OnAttackClicked;
+    }
+
+    private void OnWaitClicked()
+    {
+        Debug.Log("OnWaitClicked");
+    }
+
+    private void OnAttackClicked()
+    {
+        Debug.Log("OnAttackClicked");
+    }
+
 
     public override void LogicUpdate()
     {
