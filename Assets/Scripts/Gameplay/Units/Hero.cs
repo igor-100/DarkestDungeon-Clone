@@ -1,28 +1,44 @@
-﻿using Assets.Scripts.Configurations;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Hero : MonoBehaviour, IHero
+public class Hero : Unit, IHero
 {
-    private UnitProperties heroProperties;
+    private const string FILLPHASE_SHADER_PARAM = "_FillPhase";
+    private const float FILLPHASE_SHADER_VALUE = 0.2f;
+
+    private MeshRenderer renderer;
+    private MaterialPropertyBlock propBlock;
+
 
     private void Awake()
     {
-
+        renderer = GetComponent<MeshRenderer>();
+        propBlock = new MaterialPropertyBlock();
     }
 
-    public void Hit(float damage)
+    public void Choose()
     {
-        throw new System.NotImplementedException();
+        Material[] materials = renderer.materials;
+
+        for (int i = 0; i < materials.Length; i++)
+        {
+            SetShaderFloatProperty(i, FILLPHASE_SHADER_PARAM, FILLPHASE_SHADER_VALUE);
+        }
     }
 
-    public void SetUnitProperties(UnitProperties unitProperties)
+    public void UnChoose()
     {
-        this.heroProperties = unitProperties;
+        Material[] materials = renderer.materials;
+
+        for (int i = 0; i < materials.Length; i++)
+        {
+            SetShaderFloatProperty(i, FILLPHASE_SHADER_PARAM, 0);
+        }
     }
 
-    public void MoveToFightScene()
+    private void SetShaderFloatProperty(int materialId, string shaderParam, float paramValue)
     {
-        throw new System.NotImplementedException();
+        renderer.GetPropertyBlock(propBlock, materialId);
+        propBlock.SetFloat(shaderParam, paramValue);
+        renderer.SetPropertyBlock(propBlock);
     }
 }

@@ -1,4 +1,7 @@
-public interface IHero : IUnit 
-{
+using System;
 
+public interface IHero : IUnit
+{
+    void Choose();
+    void UnChoose();
 }

@@ -1,4 +1,3 @@
 public interface IEnemy : IUnit 
 {
-
 }

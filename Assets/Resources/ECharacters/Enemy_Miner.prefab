@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5279315681230646609}
   - component: {fileID: 5279315681230646608}
   - component: {fileID: 1083837268400367359}
+  - component: {fileID: -3363712871697841885}
   m_Layer: 0
   m_Name: Enemy_Miner
   m_TagString: Untagged
@@ -146,3 +147,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.8286877, y: 5.5406365}
   m_EdgeRadius: 0
+--- !u!114 &-3363712871697841885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5279315681230646623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff261871a79250d4f9822564fcd540c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
