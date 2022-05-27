@@ -10,12 +10,13 @@ public class PlayerActionsView : BaseView, IPlayerActionsView
 
     [SerializeField] private Button attackButton;
     [SerializeField] private Button waitButton;
+    [SerializeField] private TextMeshProUGUI pickEnemyText;
 
     private void Awake()
     {
         attackButton.onClick.AddListener(OnAttackClicked);
         waitButton.onClick.AddListener(OnWaitClicked);
-        HideAttackButton();
+        HidePickEnemyText();
     }
 
     public void OnAttackClicked()
@@ -28,13 +29,13 @@ public class PlayerActionsView : BaseView, IPlayerActionsView
         WaitClicked();
     }
 
-    public void ShowAttackButton()
+    public void ShowPickEnemyText()
     {
-        attackButton.gameObject.SetActive(true);
+        pickEnemyText.gameObject.SetActive(true);
     }
 
-    public void HideAttackButton()
+    public void HidePickEnemyText()
     {
-        attackButton.gameObject.SetActive(false);
+        pickEnemyText.gameObject.SetActive(false);
     }
 }

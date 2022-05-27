@@ -4,4 +4,6 @@ using System.Collections.Generic;
 public interface IConfiguration
 {
     List<LevelProperties> GetLevelsProperties();
+    CameraProperties GetCameraProperties();
+    MinerProperties GetMinerProperties();
 }

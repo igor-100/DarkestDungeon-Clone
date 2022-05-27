@@ -38,13 +38,13 @@ public class PlayerActions : MonoBehaviour, IPlayerActions
         View.Show();
     }
 
-    public void ShowAttackButton()
+    public void ShowPickEnemyText()
     {
-        View.ShowAttackButton();
+        View.ShowPickEnemyText();
     }
 
-    public void HideAttackButton()
+    public void HidePickEnemyText()
     {
-        View.HideAttackButton();
+        View.HidePickEnemyText();
     }
 }

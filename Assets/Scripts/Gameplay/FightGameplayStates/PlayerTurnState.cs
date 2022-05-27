@@ -16,15 +16,13 @@ public class PlayerTurnState : State
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("PlayerTurnState");
-
-        fightGameplay.playerActions.Show();
-        fightGameplay.playerActions.WaitClicked += OnWaitClicked;
 
         chosenHero = null;
 
-        foreach (var hero in fightGameplay.heroes)
+        foreach (var hero in fightGameplay.availableHeroes)
         {
+            hero.IsClickable = true;
+            hero.Highlight(0.1f);
             hero.Clicked += OnHeroClicked;
         }
     }
@@ -35,12 +33,12 @@ public class PlayerTurnState : State
         {
             if (chosenHero.Id != hero.Id)
             {
-                chosenHero.UnChoose();
+                chosenHero.Highlight(0.1f);
                 ChooseHero(hero);
             }
             else
             {
-                hero.UnChoose();
+                hero.Highlight(0.1f);
                 NoHeroChosen();
             }
         }
@@ -52,31 +50,60 @@ public class PlayerTurnState : State
 
     private void NoHeroChosen()
     {
-        chosenHero = null;
+        fightGameplay.playerActions.Hide();
 
-        fightGameplay.playerActions.HideAttackButton();
         fightGameplay.playerActions.AttackClicked -= OnAttackClicked;
+        fightGameplay.playerActions.WaitClicked -= OnWaitClicked;
+
+        chosenHero = null;
     }
 
     private void ChooseHero(IHero hero)
     {
-        hero.Choose();
+        fightGameplay.playerActions.Show();
+
+        hero.Highlight(0.2f);
         chosenHero = hero;
 
-        fightGameplay.playerActions.ShowAttackButton();
         fightGameplay.playerActions.AttackClicked += OnAttackClicked;
+        fightGameplay.playerActions.WaitClicked += OnWaitClicked;
     }
 
     private void OnWaitClicked()
     {
-        Debug.Log("OnWaitClicked");
+        chosenHero.StopHighlighting();
+
+        stateMachine.ChangeState(fightGameplay.EnemyAttackState);
     }
 
     private void OnAttackClicked()
     {
-        Debug.Log("OnAttackClicked");
+        fightGameplay.chosenHero = chosenHero;
+        fightGameplay.playerActions.ShowPickEnemyText();
+
+        foreach (var enemy in fightGameplay.enemies)
+        {
+            enemy.Highlight(0.1f);
+            enemy.IsClickable = true;
+            enemy.Clicked += OnEnemyClicked;
+        }
+
+        foreach (var hero in fightGameplay.availableHeroes)
+        {
+            hero.StopHighlighting();
+            hero.IsClickable = false;
+            hero.Clicked -= OnHeroClicked;
+        }
     }
 
+    private void OnEnemyClicked(IUnit unit)
+    {
+        chosenHero.StopHighlighting();
+
+        fightGameplay.chosenEnemy = unit as IEnemy;
+
+        stateMachine.ChangeState(fightGameplay.PlayerAttackState);
+    }
 
     public override void LogicUpdate()
     {
@@ -91,6 +118,25 @@ public class PlayerTurnState : State
     public override void Exit()
     {
         base.Exit();
+
+        fightGameplay.RemoveAvailableHero(chosenHero);
+
+        fightGameplay.playerActions.Hide();
+        fightGameplay.playerActions.WaitClicked -= OnWaitClicked;
+        fightGameplay.playerActions.AttackClicked -= OnAttackClicked;
+
+        foreach (var enemy in fightGameplay.enemies)
+        {
+            enemy.StopHighlighting();
+            enemy.IsClickable = false;
+            enemy.Clicked -= OnEnemyClicked;
+        }
+        foreach (var hero in fightGameplay.heroes)
+        {
+            hero.StopHighlighting();
+            hero.IsClickable = false;
+            hero.Clicked -= OnHeroClicked;
+        }
     }
 }
 

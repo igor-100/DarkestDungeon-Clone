@@ -2,45 +2,16 @@
 
 public class LevelScene : MonoBehaviour
 {
-    private IGameCamera GameCam;
-    private IPlayerInput PlayerInput;
-    private IConfiguration Configuration;
-    private ISceneLoader SceneLoader;
-    //private IPlayer Player;
-
-    private Camera gameCamComponent;
-
     private void Awake()
     {
-        GameCam = CompositionRoot.GetGameCamera();
-        PlayerInput = CompositionRoot.GetPlayerInput();
-        Configuration = CompositionRoot.GetConfiguration();
-        SceneLoader = CompositionRoot.GetSceneLoader();
-        //Player = CompositionRoot.GetPlayer();
+        var gameCam = CompositionRoot.GetGameCamera();
+        var configuration = CompositionRoot.GetConfiguration();
+        var sceneLoader = CompositionRoot.GetSceneLoader();
 
         var environment = CompositionRoot.GetEnvironment();
         var fightGameplay = CompositionRoot.GetFightGameplay();
-        fightGameplay.SetLevelPropsAndInit(Configuration.GetLevelsProperties()[0]);
+        fightGameplay.SetLevelPropsAndInit(configuration.GetLevelsProperties()[0]);
 
         var uiRoot = CompositionRoot.GetUIRoot();
-
-        //Player.Died += OnPlayerDied;
-    }
-
-    private void Start()
-    {
-        //GameCam.SetTarget(Player.Transform);
-        //Player.Transform.position = Configuration.GetLevelsProperties()[0].RespawnPoint;
-    }
-
-
-    private void OnPlayerDied()
-    {
-        SceneLoader.RestartScene();
-    }
-
-    private void OnPlayerDying()
-    {
-        PlayerInput.Disable();
     }
 }

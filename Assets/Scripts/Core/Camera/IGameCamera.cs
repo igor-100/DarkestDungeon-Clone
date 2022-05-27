@@ -1,7 +1,7 @@
-using Cinemachine;
 using UnityEngine;
 
 public interface IGameCamera
 {
-    void SetTarget(Transform target);
+    void SetTarget(Vector3 target);
+    void SetLensSize(float size);
 }

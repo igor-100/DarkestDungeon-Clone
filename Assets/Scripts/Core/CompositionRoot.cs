@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class CompositionRoot : MonoBehaviour
 {
     private static IUIRoot UIRoot;
     private static GameObject EnvironmentGameObject;
-    private static IPlayerInput PlayerInput;
     private static IViewFactory ViewFactory;
     private static IGameCamera GameCamera;
     private static ISceneLoader SceneLoader;
-    //private static IPlayer Player;
     private static IResourceManager ResourceManager;
     private static IConfiguration Configuration;
 
@@ -19,8 +16,6 @@ public class CompositionRoot : MonoBehaviour
     private void OnDestroy()
     {
         EnvironmentGameObject = null;
-        PlayerInput = null;
-        //Player = null;
         GameCamera = null;
         Configuration = null;
         UIRoot = null;
@@ -42,23 +37,12 @@ public class CompositionRoot : MonoBehaviour
         return ResourceManager;
     }
 
-    //public static IPlayer GetPlayer()
-    //{
-    //    if (Player == null)
-    //    {
-    //        var resourceManager = GetResourceManager();
-    //        Player = resourceManager.CreatePrefabInstance<IPlayer, ECharacters>(ECharacters.Marty);
-    //    }
-
-    //    return Player;
-    //}
-
     public static IGameCamera GetGameCamera()
     {
         if (GameCamera == null)
         {
             var resourceManager = GetResourceManager();
-            GameCamera = resourceManager.CreatePrefabInstance<IGameCamera, EComponents>(EComponents.Cameras);
+            GameCamera = resourceManager.CreatePrefabInstance<IGameCamera, ECamera>(ECamera.Cameras);
         }
 
         return GameCamera;
@@ -94,17 +78,6 @@ public class CompositionRoot : MonoBehaviour
         }
 
         return Configuration;
-    }
-
-    public static IPlayerInput GetPlayerInput()
-    {
-        if (PlayerInput == null)
-        {
-            var gameObject = new GameObject("PlayerInput");
-            PlayerInput = gameObject.AddComponent<PlayerInput>();
-        }
-
-        return PlayerInput;
     }
 
     public static IFightGameplay GetFightGameplay()

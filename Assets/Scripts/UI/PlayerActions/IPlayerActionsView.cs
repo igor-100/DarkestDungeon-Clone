@@ -5,6 +5,6 @@ public interface IPlayerActionsView : IView
     event Action AttackClicked;
     event Action WaitClicked;
 
-    void ShowAttackButton();
-    void HideAttackButton();
+    void ShowPickEnemyText();
+    void HidePickEnemyText();
 }
